@@ -88,3 +88,46 @@ class Solution {
 
 // Runtime: 14 ms, faster than 84.76% of Java online submissions for Minimum Remove to Make Valid Parentheses.
 // Memory Usage: 39.6 MB, less than 72.36% of Java online submissions for Minimum Remove to Make Valid Parentheses.
+
+
+// Without using Stack
+class Solution {
+    public String minRemoveToMakeValid(String s) {
+        if(s.length()==1)
+            return "";
+        int parenthesis=0;
+        StringBuilder sb = new StringBuilder(s);
+        for(int i=0; i<sb.length();i++){
+            if(sb.charAt(i)=='(')
+                parenthesis++;   
+            else if(sb.charAt(i)==')'){
+                if(parenthesis==0){
+                    sb.deleteCharAt(i);
+                    i--;
+                }
+                else{
+                    parenthesis--;
+                }
+            }
+        }
+        parenthesis=0;
+        for(int i=sb.length()-1; i>=0;i--){
+            if(sb.charAt(i)==')')
+                parenthesis++;   
+            else if(sb.charAt(i)=='('){
+                if(parenthesis==0){
+                    sb.deleteCharAt(i);
+                }
+                else{
+                    parenthesis--;
+                }
+            }
+        }
+        return sb.toString();
+    }
+}
+
+// Runtime: 14 ms, faster than 84.76% of Java online submissions for Minimum Remove to Make Valid Parentheses.
+// Memory Usage: 39.5 MB, less than 87.73% of Java online submissions for Minimum Remove to Make Valid Parentheses.
+// Runtime: 13 ms, faster than 88.00% of Java online submissions for Minimum Remove to Make Valid Parentheses.
+// Memory Usage: 39.7 MB, less than 72.36% of Java online submissions for Minimum Remove to Make Valid Parentheses.
