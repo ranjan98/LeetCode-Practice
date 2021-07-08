@@ -72,3 +72,35 @@ class Solution {
 // Runtime: 11 ms, faster than 85.14% of Java online submissions for Network Delay Time.
 // Memory Usage: 43.4 MB, less than 41.99% of Java online submissions for Network Delay Time.
 
+// Using Bellman Ford Algorithm
+class Solution {
+    public int networkDelayTime(int[][] times, int n, int k) {
+        int distances[] = new int[n];
+        Arrays.fill(distances, Integer.MAX_VALUE);
+        distances[k-1] = 0;
+        for(int i=0; i<n-1; i++){
+            int count = 0;
+            for(int j=0; j<times.length; j++){
+                int source = times[j][0]-1;
+                int target = times[j][1]-1;
+                int weight = times[j][2];
+                if((long)distances[source] + (long)weight < distances[target]){
+                    distances[target] = distances[source] + weight;
+                    count++;
+                }
+            }
+            if(count == 0)
+                break;
+        }
+        int max = 0;
+        for(int i=0; i<n; i++){
+            if(distances[i] == Integer.MAX_VALUE)
+                return -1;
+            max = Math.max(max, distances[i]);
+        }
+        return max;
+    }
+}
+
+// Runtime: 3 ms, faster than 99.11% of Java online submissions for Network Delay Time.
+// Memory Usage: 42 MB, less than 81.67% of Java online submissions for Network Delay Time.
